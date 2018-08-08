@@ -227,8 +227,8 @@ class AppFrame extends React.Component {
           onOpen={this.handleDrawerOpen}
           mobileOpen={this.state.mobileOpen}
         />
-        <ThemeDialog open={this.state.themeOpen} handleClose={this.handleToggleTheme} handleSave={this.handleSaveTheme}/>
         {children}
+        <ThemeDialog open={this.state.themeOpen} handleClose={this.handleToggleTheme} handleSave={this.handleSaveTheme} theme={this.props.uiTheme.theme}/>
       </div>
     );
   }

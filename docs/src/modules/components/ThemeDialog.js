@@ -117,6 +117,8 @@ let overrides = {
   MuiZoom: ["root"],
 };
 
+let typos = ["display4", "display3", "display2", "display1", "headline", "title", "subheading", "body2", "body1", "caption", "button"];
+
 class ThemeDialog extends React.Component {
 
 
@@ -126,14 +128,18 @@ class ThemeDialog extends React.Component {
       tab: 'palette',
       selectedOverride: 'MuiButton',
       selectedClass: 'root',
-      theme: {},
+      selectedTypo: 'display4',
+      theme: props.theme || {},
       tempJson: {},
     }
   }
 
 
-  handleChange = name => (event,value) => {
+  handleChange = (name, type) => (event,value) => {
     value = value || event.target.value;
+    if (type === 'number') {
+      value = Number(value);
+    }
     this.updateValue(value, name);
   };
 
@@ -177,25 +183,31 @@ class ThemeDialog extends React.Component {
   }
 
   ThemeTextField = (props) => (<TextField margin="dense" label={props.label} fullWidth
+                                          type={props.type}
                                           value={_.get(this.state, props.name) ? _.get(this.state, props.name) : ""}
-                                          onChange={this.handleChange(props.name)}
+                                          onChange={this.handleChange(props.name, props.type)}
   />);
 
   render() {
     let ThemeTextField = this.ThemeTextField;
     let overrideKey = "theme.overrides." + this.state.selectedOverride + "." + this.state.selectedClass;
 
-    return <Drawer anchor="right"  open={this.props.open} >
+    return <Drawer anchor="right"  open={this.props.open} variant="persistent">
       {/*<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>*/}
       <AppBar position="static">
         <Tabs value={this.state.tab} onChange={this.handleChange("tab")}>
-          <Tab value="palette" label="Palette" />
-          <Tab value="overrides" label="Overrides" />
-          <Tab value="json" label="JSON" />
+          <Tab style={{minWidth:"0px"}} value="palette" label="Palette" />
+          <Tab style={{minWidth:"0px"}} value="typo" label="Typo" />
+          <Tab style={{minWidth:"0px"}} value="misc" label="Misc" />
+          <Tab style={{minWidth:"0px"}} value="overrides" label="Overrides" />
+          <Tab style={{minWidth:"0px"}} value="json" label="JSON" />
         </Tabs>
       </AppBar>
 
       {this.state.tab === 'palette' && <DialogContent style={{width:"500px"}}>
+        <ThemeTextField label="Type (light/dark)" name="theme.palette.type"/>
+        <ThemeTextField label="Black" name="theme.palette.common.black"/>
+        <ThemeTextField label="White" name="theme.palette.common.white"/>
         <ThemeTextField label="Primary main" name="theme.palette.primary.main"/>
         <ThemeTextField label="Primary light" name="theme.palette.primary.light"/>
         <ThemeTextField label="Primary dark" name="theme.palette.primary.dark"/>
@@ -208,8 +220,8 @@ class ThemeDialog extends React.Component {
         <ThemeTextField label="Error light" name="theme.palette.error.light"/>
         <ThemeTextField label="Error dark" name="theme.palette.error.dark"/>
         <ThemeTextField label="Error contrastText" name="theme.palette.error.contrastText"/>
-        <ThemeTextField label="contrastThreshold" name="theme.palette.contrastThreshold"/>
-        <ThemeTextField label="tonalOffset" name="theme.palette.tonalOffset"/>
+        <ThemeTextField label="Contrast Threshold" name="theme.palette.contrastThreshold" type="number"/>
+        <ThemeTextField label="Tonal Offset" name="theme.palette.tonalOffset" type="number"/>
         <ThemeTextField label="Text primary" name="theme.palette.text.primary"/>
         <ThemeTextField label="Text secondary" name="theme.palette.text.secondary"/>
         <ThemeTextField label="Text disabled" name="theme.palette.text.disabled"/>
@@ -217,6 +229,40 @@ class ThemeDialog extends React.Component {
         <ThemeTextField label="Divider" name="theme.palette.divider"/>
         <ThemeTextField label="Background paper" name="theme.palette.background.paper"/>
         <ThemeTextField label="Background default" name="theme.palette.background.default"/>
+        <ThemeTextField label="Action / active" name="theme.palette.action.active"/>
+        <ThemeTextField label="Action / hover" name="theme.palette.action.hover"/>
+        <ThemeTextField label="Action / hoverOpacity" name="theme.palette.action.hoverOpacity" type="number"/>
+        <ThemeTextField label="Action / selected" name="theme.palette.action.selected"/>
+        <ThemeTextField label="Action / disabled" name="theme.palette.action.disabled"/>
+        <ThemeTextField label="Action / disabledBackground" name="theme.palette.action.disabledBackground"/>
+      </DialogContent>}
+      {this.state.tab === 'typo' && <DialogContent style={{width:"500px"}}>
+        <ThemeTextField label="Font family" name="theme.typography.fontFamily"/>
+        <ThemeTextField label="Font size" name="theme.typography.fontSize"/>
+        <ThemeTextField label="Font weight light" name="theme.typography.fontWeightLight" type="number"/>
+        <ThemeTextField label="Font weight regular" name="theme.typography.fontWeightRegular" type="number"/>
+        <ThemeTextField label="Font weight Medium" name="theme.typography.fontWeightMedium" type="number"/>
+
+        <FormControl fullWidth>
+          <InputLabel htmlFor="override">Select typo</InputLabel>
+          <Select id="override" value={this.state.selectedTypo} onChange={this.handleChange("selectedTypo")}>
+            {typos.map(k => <MenuItem key={k} value={k}>{k}</MenuItem>)}
+          </Select>
+        </FormControl>
+
+        <ThemeTextField label={"Font family for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".fontFamily"}/>
+        <ThemeTextField label={"Font weight for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".fontWeight"} type="number"/>
+        <ThemeTextField label={"Font size for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".fontSize"}/>
+        <ThemeTextField label={"Letter spacing for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".letterSpacing"}/>
+        <ThemeTextField label={"Line height for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".lineHeight"}/>
+        <ThemeTextField label={"Margin left for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".marginLeft"}/>
+        <ThemeTextField label={"Color for "+this.state.selectedTypo} name={"theme.typography."+this.state.selectedTypo+".color"}/>
+      </DialogContent>}
+
+      {this.state.tab === 'misc' && <DialogContent style={{width: "500px"}}>
+        <ThemeTextField label="Spacing unit" name="theme.spacing.unit" type="number"/>
+        <ThemeTextField label="Direction (ltr / rtl)" name="theme.direction"/>
+        <ThemeTextField label="Shape / border radius" name="theme.shape.borderRadius" type="number"/>
       </DialogContent>}
 
       {this.state.tab === 'overrides' && <DialogContent style={{width:"500px"}}>
@@ -253,7 +299,7 @@ class ThemeDialog extends React.Component {
       </DialogContent>}
       <DialogActions>
         <Button onClick={this.props.handleClose} color="primary">
-          Cancel
+          Hide
         </Button>
         <Button onClick={() => this.props.handleSave(this.state.theme)} color="primary">
           Save

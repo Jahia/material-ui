@@ -2,6 +2,18 @@ import actionTypes from 'docs/src/modules/redux/actionTypes';
 import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/pink';
 import { darken } from '@material-ui/core/styles/colorManipulator';
+import * as _ from 'lodash';
+
+let theme = {};
+if (typeof window !== 'undefined') {
+  if (window.localStorage.getItem('mui-theme')) {
+    try {
+      theme = JSON.parse(window.localStorage.getItem('mui-theme'))
+    } catch (e) {
+
+    }
+  }
+}
 
 const initialState = {
   paletteType: 'light',
@@ -13,6 +25,7 @@ const initialState = {
     },
   },
   direction: 'ltr',
+  theme:_.cloneDeep(theme)
 };
 
 const mapping = {
@@ -28,14 +41,19 @@ const mapping = {
     ...state,
     paletteColors: action.payload.paletteColors,
   }),
-  [actionTypes.THEME_SET]: (state, action) => ({
-    ...state,
-    theme: action.payload.theme,
-  }),
+  [actionTypes.THEME_SET]: (state, action) => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('mui-theme', JSON.stringify(action.payload.theme));
+    }
+    return ({
+      ...state,
+      theme: _.cloneDeep(action.payload.theme),
+    })
+  },
 };
 
 function themeReducer(state = initialState, action) {
-  let newState = state;
+  let newState = initialState;
 
   if (mapping[action.type]) {
     newState = mapping[action.type](state, action);

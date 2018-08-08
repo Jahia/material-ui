@@ -33,6 +33,17 @@ function getTheme(uiTheme) {
   return theme;
 }
 
+let t = {};
+if (typeof window !== 'undefined') {
+  if (window.localStorage.getItem('mui-theme')) {
+    try {
+      t = JSON.parse(window.localStorage.getItem('mui-theme'))
+    } catch (e) {
+
+    }
+  }
+}
+
 const theme = getTheme({
   direction: 'ltr',
   paletteType: 'light',
@@ -43,6 +54,7 @@ const theme = getTheme({
       main: darken(pink.A400, 0.08),
     },
   },
+  theme: t
 });
 
 // Configure JSS
