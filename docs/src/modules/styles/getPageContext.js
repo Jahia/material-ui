@@ -8,6 +8,15 @@ import pink from '@material-ui/core/colors/pink';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 
 function getTheme(uiTheme) {
+  if (uiTheme.theme) {
+    return createMuiTheme({
+      ...uiTheme.theme,
+      nprogress: {
+        color: '#000'
+      }
+    });
+  }
+
   const theme = createMuiTheme({
     direction: uiTheme.direction,
     nprogress: {

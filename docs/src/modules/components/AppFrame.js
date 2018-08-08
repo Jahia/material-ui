@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MenuIcon from '@material-ui/icons/Menu';
 import ColorsIcon from '@material-ui/icons/InvertColors';
+import EditIcon from '@material-ui/icons/Edit';
 import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
 import LightbulbFullIcon from '@material-ui/docs/svgIcons/LightbulbFull';
 import NProgressBar from '@material-ui/docs/NProgressBar';
@@ -25,6 +26,7 @@ import AppSearch from 'docs/src/modules/components/AppSearch';
 import Notifications from 'docs/src/modules/components/Notifications';
 import { pageToTitle } from 'docs/src/modules/utils/helpers';
 import actionTypes from 'docs/src/modules/redux/actionTypes';
+import ThemeDialog from './ThemeDialog';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -78,6 +80,7 @@ const styles = theme => ({
 class AppFrame extends React.Component {
   state = {
     mobileOpen: false,
+    themeOpen: false
   };
 
   handleDrawerOpen = () => {
@@ -102,6 +105,19 @@ class AppFrame extends React.Component {
       type: actionTypes.THEME_CHANGE_DIRECTION,
       payload: {
         direction: this.props.uiTheme.direction === 'ltr' ? 'rtl' : 'ltr',
+      },
+    });
+  };
+
+  handleToggleTheme = () => {
+    this.setState(state => ({ themeOpen: !state.themeOpen }));
+  };
+
+  handleSaveTheme = (theme) => {
+    this.props.dispatch({
+      type: actionTypes.THEME_SET,
+      payload: {
+        theme: theme,
       },
     });
   };
@@ -182,6 +198,15 @@ class AppFrame extends React.Component {
                 )}
               </IconButton>
             </Tooltip>
+            <Tooltip title="Toggle theme" enterDelay={300}>
+              <IconButton
+                color="inherit"
+                onClick={this.handleToggleTheme}
+                aria-label="Toggle theme"
+              >
+                  <EditIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="GitHub repository" enterDelay={300}>
               <IconButton
                 component="a"
@@ -202,6 +227,7 @@ class AppFrame extends React.Component {
           onOpen={this.handleDrawerOpen}
           mobileOpen={this.state.mobileOpen}
         />
+        <ThemeDialog open={this.state.themeOpen} handleClose={this.handleToggleTheme} handleSave={this.handleSaveTheme}/>
         {children}
       </div>
     );

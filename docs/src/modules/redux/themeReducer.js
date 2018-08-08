@@ -28,6 +28,10 @@ const mapping = {
     ...state,
     paletteColors: action.payload.paletteColors,
   }),
+  [actionTypes.THEME_SET]: (state, action) => ({
+    ...state,
+    theme: action.payload.theme,
+  }),
 };
 
 function themeReducer(state = initialState, action) {
