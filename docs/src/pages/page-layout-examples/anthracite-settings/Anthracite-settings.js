@@ -151,6 +151,9 @@ function getStepContent(step) {
 }
 
 const styles = theme => ({
+	fullScreenPromptFooter: {
+		position: 'absolute'
+	},
   appBar: {
     position: 'relative',
   },
@@ -2431,10 +2434,10 @@ class AnthraciteSettings extends React.Component {
 					  	</DialogContentText>
 					    </DialogContent>
 					    <DialogActions>
-					  	<Button onClick={this.handleClose} color="primary">
+					  	<Button onClick={this.handleClose} variant="contained" color="default">
 					  	  Disagree
 					  	</Button>
-					  	<Button onClick={this.handleClose} color="primary" autoFocus>
+					  	<Button onClick={this.handleClose} variant="contained" color="primary" autoFocus>
 					  	  Agree
 					  	</Button>
 					    </DialogActions>
@@ -2451,21 +2454,22 @@ class AnthraciteSettings extends React.Component {
 	                      <DialogContentText id="alert-dialog-description">
 	                        Please choose a cool name.
 	                      </DialogContentText>
-	                      <TextField
-	                        disableUnderline
-	                        fullWidth
-	                        placeholder="Placeholder"
-	                        margin="normal"
-	                        InputLabelProps={{
-	                          shrink: true,
-	                        }}
-	                      />
+						  <FormControlLabel
+                            control={
+                              <Input
+                                disableUnderline
+                                placeholder="Enter a name"
+                                value=""
+                              />
+                            }
+                            labelPlacement="start"
+                          />
 	                    </DialogContent>
 	                    <DialogActions>
-	                      <Button onClick={this.handleCloseFormDialog} color="primary">
+	                      <Button onClick={this.handleCloseFormDialog} variant="contained" color="default">
 	                        Disagree
 	                      </Button>
-	                      <Button onClick={this.handleCloseFormDialog} color="primary" autoFocus>
+	                      <Button onClick={this.handleCloseFormDialog} variant="contained" color="primary" autoFocus>
 	                        Agree
 	                      </Button>
 	                    </DialogActions>
@@ -2477,31 +2481,59 @@ class AnthraciteSettings extends React.Component {
 	                    onClose={this.handleCloseFullScreenDialog}
 	                    TransitionComponent={Transition}
 	                  >
-	                    <AppBar className={classes.appBar}>
-	                      <Toolbar>
-	                        <IconButton
-	                          color="inherit"
-	                          onClick={this.handleCloseFullScreenDialog}
-	                          aria-label="Close"
-	                        >
-	                          <CloseIcon />
-	                        </IconButton>
-	                        <Typography variant="title" color="inherit" className={classes.flex}>
-	                          Sound
-	                        </Typography>
-	                        <Button color="inherit" onClick={this.handleCloseFullScreenDialog}>
-	                          save
-	                        </Button>
-	                      </Toolbar>
-	                    </AppBar>
-	                    <List>
-	                      <ListItem button>
-	                        <ListItemText primary="Phone ringtone" secondary="Titania" />
-	                      </ListItem>
-	                      <ListItem button>
-	                        <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-	                      </ListItem>
-	                    </List>
+					  <DialogTitle>Sound</DialogTitle>
+					  <DialogContent>
+					    <DialogContentText>
+					  	Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+					  	facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+					  	vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl
+					  	consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
+					  	auctor. Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
+					  	magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
+					  	ullamcorper nulla non metus auctor fringilla. Cras mattis consectetur purus
+					  	sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+					  	quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent
+					  	commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
+					  	lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean lacinia bibendum
+					  	nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+					  	consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
+					  	fringilla. Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+					  	dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+					  	consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel
+					  	scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+					  	rutrum faucibus dolor auctor. Aenean lacinia bibendum nulla sed consectetur.
+					  	Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed
+					  	odio dui. Donec ullamcorper nulla non metus auctor fringilla. Cras mattis
+					  	consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+					  	in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at
+					  	eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+					  	Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean
+					  	lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+					  	scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla
+					  	non metus auctor fringilla. Cras mattis consectetur purus sit amet fermentum.
+					  	Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus,
+					  	porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna,
+					  	vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+					  	rutrum faucibus dolor auctor. Aenean lacinia bibendum nulla sed consectetur.
+					  	Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed
+					  	odio dui. Donec ullamcorper nulla non metus auctor fringilla. Cras mattis
+					  	consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+					  	in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at
+					  	eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+					  	Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean
+					  	lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+					  	scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla
+					  	non metus auctor fringilla.
+					    </DialogContentText>
+					  </DialogContent>
+						<DialogActions className="footer">
+	                      <Button onClick={this.handleCloseFullScreenDialog} variant="contained" color="default">
+	                        Disagree
+	                      </Button>
+	                      <Button onClick={this.handleCloseFullScreenDialog} variant="contained" color="primary" autoFocus>
+	                        Agree
+	                      </Button>
+	                    </DialogActions>
 	                  </Dialog>
 
 					  <Dialog
@@ -2556,17 +2588,14 @@ class AnthraciteSettings extends React.Component {
 	                      </DialogContentText>
 	                    </DialogContent>
 	                    <DialogActions>
-	                      <Button onClick={this.handleCloseScroll} color="primary">
+	                      <Button onClick={this.handleCloseScroll} color="default" variant="contained">
 	                        Cancel
 	                      </Button>
-	                      <Button onClick={this.handleCloseScroll} color="primary">
+	                      <Button onClick={this.handleCloseScroll} color="primary" variant="contained">
 	                        Subscribe
 	                      </Button>
 	                    </DialogActions>
 	                  </Dialog>
-
-
-
 
 						  <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
 							<div
@@ -2575,7 +2604,79 @@ class AnthraciteSettings extends React.Component {
 							onClick={this.toggleDrawer('left', false)}
 							onKeyDown={this.toggleDrawer('left', false)}
 							>
-							Hey
+							<List>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+
+							</List>
 							</div>
 						  </Drawer>
 						  <Drawer
@@ -2589,7 +2690,79 @@ class AnthraciteSettings extends React.Component {
 							onClick={this.toggleDrawer('top', false)}
 							onKeyDown={this.toggleDrawer('top', false)}
 							>
-							Hey
+							<List>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+
+							</List>
 							</div>
 						  </Drawer>
 						  <Drawer
@@ -2603,7 +2776,79 @@ class AnthraciteSettings extends React.Component {
 							onClick={this.toggleDrawer('bottom', false)}
 							onKeyDown={this.toggleDrawer('bottom', false)}
 							>
-							Hey
+							<List>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+
+							</List>
 							</div>
 						  </Drawer>
 						  <Drawer
@@ -2617,7 +2862,79 @@ class AnthraciteSettings extends React.Component {
 							onClick={this.toggleDrawer('right', false)}
 							onKeyDown={this.toggleDrawer('right', false)}
 							>
-							Hey
+							<List>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+							<ListItem>
+							<Button
+								size="large"
+								color="secondary"
+								  aria-haspopup="true"
+								>
+								  <AccountCircle />
+								  Account
+								</Button>
+							</ListItem>
+
+							</List>
 							</div>
 						  </Drawer>
 			      </Grid>
