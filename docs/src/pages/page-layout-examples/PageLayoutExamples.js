@@ -29,14 +29,22 @@ const styles = {
 };
 
 const themes = [
-  {
-    name: 'Sign-in',
-    description: 'A simple sign-in page.',
-    src: '/static/images/layouts/sign-in.png',
-    href: '/page-layout-examples/sign-in',
-    source:
-      'https://github.com/mui-org/material-ui/tree/master/docs/src/pages/page-layout-examples/sign-in',
-  },
+    {
+      name: 'Anthracite settings',
+      description: 'A demo for Anthracite settings.',
+      src: '/static/images/layouts/anthracite-settings.png',
+      href: '/page-layout-examples/anthracite-settings',
+      source:
+        'http://www.jahia.com',
+    },
+    {
+      name: 'Sign-in',
+      description: 'A simple sign-in page.',
+      src: '/static/images/layouts/sign-in.png',
+      href: '/page-layout-examples/sign-in',
+      source:
+        'https://github.com/mui-org/material-ui/tree/master/docs/src/pages/page-layout-examples/sign-in',
+    },
   {
     name: 'Album',
     description: 'A reponsive album / gallery page layout with a hero unit and footer.',
